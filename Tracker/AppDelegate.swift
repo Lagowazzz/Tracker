@@ -10,10 +10,24 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        window = UIWindow(frame: UIScreen.main.bounds)
+           
+           // Создаем экземпляр MainScreenViewController
+           let mainScreenViewController = MainScreenViewController()
+           
+           // Создаем UINavigationController с MainScreenViewController в качестве корневого контроллера
+           let navigationController = UINavigationController(rootViewController: mainScreenViewController)
+        print("Navigation controller created with root view controller:", navigationController.viewControllers)
+
+           // Устанавливаем UINavigationController как корневой контроллер окна
+           window?.rootViewController = navigationController
+        navigationController.isNavigationBarHidden = false
+
+           // Отображаем окно
+           window?.makeKeyAndVisible()
         return true
     }
 
