@@ -1,9 +1,3 @@
-//
-//  SceneDelegate.swift
-//  Tracker
-//
-//  Created by Илья Ляшенко on 07.05.2024.
-//
 
 import UIKit
 

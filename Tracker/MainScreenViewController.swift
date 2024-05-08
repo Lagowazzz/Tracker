@@ -3,22 +3,32 @@ import UIKit
 class MainScreenViewController: UIViewController {
     
     private var plusButton: UIButton!
-    private var dateButton: UIButton!
+    private var datePicker: UIDatePicker!
     private var mainLabel: UILabel!
     private var starImageView: UIImageView!
     private var whatsUpLabel: UILabel!
+    private var searchTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupPlusButton()
-        setupDateButton()
+        setupDatePicker()
         setupMainLabel()
         setupSearchTextField()
         setupStarImageView()
         setupWhatsUpLabel()
         setupTabBar()
+        view.bringSubviewToFront(datePicker)
+        view.bringSubviewToFront(searchTextField)
     }
+    
+    @objc private func datePickerDidTap() {
+        let selectedDate = datePicker.date
+        _ = formatDate(date: selectedDate)
+        dismiss(animated: true)
+    }
+    
     
     private func setupTabBar() {
         let tabBarController = UITabBarController()
@@ -43,8 +53,8 @@ class MainScreenViewController: UIViewController {
         
         let topBorder = CALayer()
         topBorder.frame = CGRect(x: 0, y: 0, width: tabBarController.tabBar.frame.width, height: 0.5)
-           topBorder.backgroundColor = UIColor.lightGray.cgColor
-           tabBarController.tabBar.layer.addSublayer(topBorder)
+        topBorder.backgroundColor = UIColor.lightGray.cgColor
+        tabBarController.tabBar.layer.addSublayer(topBorder)
     }
     
     private func setupWhatsUpLabel() {
@@ -90,8 +100,15 @@ class MainScreenViewController: UIViewController {
     }
     
     private func setupSearchTextField() {
-        let searchTextField = UITextField()
+        searchTextField = UITextField()
         searchTextField.placeholder = "      Поиск"
+        searchTextField.attributedPlaceholder = NSAttributedString(
+            string: "      Поиск",
+            attributes: [
+                .foregroundColor: UIColor(red: 174/255, green: 175/255, blue: 180/255, alpha: 1),
+                .font: UIFont.systemFont(ofSize: 17)
+            ]
+        )
         searchTextField.backgroundColor = UIColor(red: 118/255, green: 118/255, blue: 128/255, alpha: 0.12)
         
         searchTextField.layer.cornerRadius = 8
@@ -122,22 +139,22 @@ class MainScreenViewController: UIViewController {
         
     }
     
-    private func setupDateButton() {
-        dateButton = UIButton(type: .custom)
-        dateButton.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
-        dateButton.setTitle(formatDate(date: Date()), for: .normal)
-        dateButton.setTitleColor(.black, for: .normal)
-        dateButton.titleLabel?.font = .boldSystemFont(ofSize: 17)
-        dateButton.layer.cornerRadius = 8
-        dateButton.layer.masksToBounds = true
-        dateButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(dateButton)
+    private func setupDatePicker() {
+        datePicker = UIDatePicker()
+        datePicker.preferredDatePickerStyle = .compact
+        datePicker.datePickerMode = .date
+        datePicker.locale = Locale(identifier: "ru_RU")
+        datePicker.tintColor = .systemBlue
+        datePicker.date = Date()
+        datePicker.addTarget(self, action: #selector(datePickerDidTap), for: .valueChanged)
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(datePicker)
         
         NSLayoutConstraint.activate([
-            dateButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            dateButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 49),
-            dateButton.widthAnchor.constraint(equalToConstant: 77),
-            dateButton.heightAnchor.constraint(equalToConstant: 44)
+            datePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            datePicker.topAnchor.constraint(equalTo: view.topAnchor, constant: 49),
+            datePicker.widthAnchor.constraint(equalToConstant: 100),
+            datePicker.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
     
