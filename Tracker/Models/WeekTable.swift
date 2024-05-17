@@ -34,7 +34,7 @@ enum WeekDay: Int, CaseIterable {
         }
     }
     
-    var shortValue: String {
+    var abb: String {
         switch self {
         case .monday:
             return "Пн"

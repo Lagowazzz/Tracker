@@ -17,7 +17,7 @@ final class TabBarController: UITabBarController {
             title: "Трекеры",
             image: UIImage(named: "circle"),
             selectedImage: nil)
-                
+        
         let statisticViewController = StatisticViewController()
         statisticViewController.tabBarItem = UITabBarItem(
             title: "Статистика",
