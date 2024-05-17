@@ -2,9 +2,9 @@
 import UIKit
 
 final class TabBarController: UITabBarController {
+   
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .white
         
         let separator = UIView(frame: CGRect(x: 0, y: 0, width: tabBar.frame.width, height: 1))
